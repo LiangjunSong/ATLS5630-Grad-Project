@@ -63,7 +63,7 @@ export default {
         return {
             keywords: '',
             chips: ['Sleeping'],
-            tags: ['Jazz', 'Muse']
+            tags: ['Jazz', 'Pop', 'Rock', 'Guitar', 'Piano', 'Relax', 'Male','Female','No vocal']
         }
     },
     methods: {
