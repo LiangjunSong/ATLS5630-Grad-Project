@@ -4,18 +4,20 @@
     <Search
     @test="testFunction"
     />
+    <Playlist />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+
 import Search from './components/Search'
+import Playlist from './components/Playlist'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
-    Search
+    Search,
+    Playlist
   },
   methods: {
     testFunction(name) {
