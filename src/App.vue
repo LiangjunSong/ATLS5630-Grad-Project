@@ -4,7 +4,9 @@
     <Search
     @getList="getPlayList"
     />
-    <Playlist />
+    <Playlist
+      :songsPar="songsPar"
+    />
   </div>
 </template>
 
@@ -20,9 +22,16 @@ export default {
     Search,
     Playlist
   },
+
   data() {
       return {
-          songs:[]
+          songsPar:[{
+            title: 'Preparation',
+            author: 'Hans Zimmer/Richard Harvey',
+            url: 'http://devtest.qiniudn.com/Preparation.mp3',
+            pic: 'http://devtest.qiniudn.com/Preparation.jpg',
+            lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
+          }]
       }
   },
   methods: {
@@ -41,16 +50,18 @@ export default {
         // JSON responses are automatically parsed.
         console.log(response.data.search.data.tracks);
         var tracks = response.data.search.data.tracks;
+        this.songsPar = [];
         for(var i = 0; i < tracks.length; i++){
           var song = {
             title: tracks[i].name,
             author: tracks[i].artistName,
             url: tracks[i].previewURL,
-            pic: ''
+            pic: 'http://devtest.qiniudn.com/Preparation.jpg'
           };
-          this.songs.push(song);
+          this.songsPar.push(song);
         }
-        console.log(this.songs);
+        // console.log("sss");
+        console.log(this.songsPar);
       })
     }
   }
