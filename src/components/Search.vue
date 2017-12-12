@@ -57,13 +57,16 @@
 
 <script>
 
+import axios from 'axios';
+
 export default {
     name: 'Search',
     data() {
         return {
             keywords: '',
-            chips: ['Sleeping'],
-            tags: ['Jazz', 'Pop', 'Rock', 'Guitar', 'Piano', 'Relax', 'Male','Female','No vocal']
+            chips: [],
+            tags: [],
+            tagsId: [],
         }
     },
     methods: {
@@ -71,6 +74,18 @@ export default {
             this.chips.splice(this.chips.indexOf(item), 1)
             this.chips = [...this.chips]
         }
+    },
+    created(){
+      axios.get(`http://api.napster.com/v2.2/tags?apikey=YTkxZTRhNzAtODdlNy00ZjMzLTg0MWItOTc0NmZmNjU4Yzk4&includeHidden=true`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        console.log(response.data.tags);
+        for(var i = 0; i < response.data.tags.length; i++){
+          if (response.data.tags[i].childIds.length === 0){
+            this.tags.push(response.data.tags[i].name);
+          }
+        }
+      })
     }
 }
 
