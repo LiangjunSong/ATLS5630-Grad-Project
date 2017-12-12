@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <Search
-    @test="testFunction"
+    @getList="getPlayList"
     />
     <Playlist />
   </div>
@@ -20,8 +20,9 @@ export default {
     Playlist
   },
   methods: {
-    testFunction(name) {
-      console.log(name);
+    getPlayList(tags) {
+      console.log(tags);
+      
     }
   }
 }

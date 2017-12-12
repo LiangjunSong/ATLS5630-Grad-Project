@@ -40,7 +40,7 @@
                                         </v-select>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <v-btn id="search-btn" color="primary" @click="$emit('test', 'sss')">Go</v-btn>
+                                        <v-btn id="search-btn" color="primary" @click="$emit('getList', chips)">Go</v-btn>
                                     </v-flex>
                                 </v-layout>
                             </v-container>
