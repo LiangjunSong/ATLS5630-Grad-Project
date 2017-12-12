@@ -18,27 +18,50 @@
 <template>
 
 <div>
-  <h1> MSG for playlist</h1>
-  <p> Test Hello </p>
+
+  <a-player :music="songs" ref="player"></a-player>
 </div>
 
 </template>
 
 <script>
 
-
+import VueAplayer from 'vue-aplayer';
 export default {
     name: 'Playlist',
+    components:{
+      'a-player': VueAplayer
+    },
     data() {
         return {
-            keywords: '',
-            chips: [],
-            tags: [],
-            tagsId: [],
+          songs: [
+              {
+                title: 'Preparation',
+                author: 'Hans Zimmer/Richard Harvey',
+                url: 'http://devtest.qiniudn.com/Preparation.mp3',
+                pic: 'http://devtest.qiniudn.com/Preparation.jpg',
+                lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
+              },
+              {
+                title: 'Preparation',
+                author: 'Hans Zimmer/Richard Harvey',
+                url: 'http://devtest.qiniudn.com/Preparation.mp3',
+                pic: 'http://devtest.qiniudn.com/Preparation.jpg',
+                lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
+              },
+              {
+                title: 'Preparation',
+                author: 'Hans Zimmer/Richard Harvey',
+                url: 'http://devtest.qiniudn.com/Preparation.mp3',
+                pic: 'http://devtest.qiniudn.com/Preparation.jpg',
+                lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
+              }
+          ]
         }
     },
-    methods: {
-
+    mounted() {
+        let aplayer = this.$refs.player.control;
+        aplayer.play()
     }
 
 }
