@@ -12,6 +12,7 @@
 
 import Search from './components/Search'
 import Playlist from './components/Playlist'
+import axios from 'axios';
 
 export default {
   name: 'app',
@@ -19,10 +20,38 @@ export default {
     Search,
     Playlist
   },
+  data() {
+      return {
+          songs:[]
+      }
+  },
   methods: {
     getPlayList(tags) {
-      console.log(tags);
-      
+      var url = "http://api.napster.com/v2.2/search/verbose?apikey=OWRkODNjNGYtNDAwMy00N2JiLWEwOWQtNzRhMzE3NjMyZmM5&query="
+      for(var i = 0; i <tags.length; i++){
+        if(i == 0 ){
+          url = url + tags[i];
+        }else{
+          url = url + "+" + tags[i];
+        }
+      }
+      console.log(url);
+      axios.get(url)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        console.log(response.data.search.data.tracks);
+        var tracks = response.data.search.data.tracks;
+        for(var i = 0; i < tracks.length; i++){
+          var song = {
+            title: tracks[i].name,
+            author: tracks[i].artistName,
+            url: tracks[i].previewURL,
+            pic: ''
+          };
+          this.songs.push(song);
+        }
+        console.log(this.songs);
+      })
     }
   }
 }
