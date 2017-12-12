@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <Search/>
+    <Search
+    @test="testFunction"
+    />
   </div>
 </template>
 
@@ -14,6 +16,11 @@ export default {
   components: {
     HelloWorld,
     Search
+  },
+  methods: {
+    testFunction(name) {
+      console.log(name);
+    }
   }
 }
 </script>
