@@ -6,7 +6,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    /*margin-top: 60px;*/
 }
 
 #search-btn {
@@ -17,10 +17,6 @@
 
 <template>
 
-<div>
-    <v-app id="inspire">
-        <v-container fluid="fluid" class="text-xs-center">
-            <v-layout row wrap>
                 <v-flex xs12 sm8 offset-sm2><span>Online Music Picker</span>
                     <v-card height="185px" flat color="white">
                         <v-card-text>
@@ -47,11 +43,8 @@
                         </v-card-text>
                     </v-card>
                 </v-flex>
-            </v-layout>
 
-        </v-container>
-    </v-app>
-</div>
+
 
 </template>
 

@@ -1,18 +1,46 @@
+<style src="../node_modules/vuetify/dist/vuetify.min.css">
+
+</style> --> <style scoped> #inspire {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    /*margin-top: 60px;*/
+}
+
+#search-btn {
+    margin-top: 10px;
+}
+
+</style>
+
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <Search
-    @getList="getPlayList"
-    />
-    <Playlist
-      v-for="comp in components"
-      :songsPar="songsPar"
-    />
-      <div id="cube" style="width:400px; height:400px;">THREE.JS should appear here</div>
-        <div id="cubeapp">
+    <v-app id="inspire">
+        <v-container fluid="fluid" class="text-xs-center">
+            <v-layout row wrap>
+              <Search
+              @getList="getPlayList"
+              />
+              <v-flex xs12 sm8 offset-sm2>
+              <Playlist
+                v-for="comp in components"
+                :songsPar="songsPar"
+              />
+              </v-flex>
 
-        </div>
+          </v-layout>
+
+      </v-container>
+    </v-app>
+    <div id="cube" style="width:400px; height:400px;">THREE.JS should appear here</div>
+      <div id="cubeapp">
+
+      </div>
   </div>
+
 </template>
 
 <script>
@@ -21,6 +49,7 @@ import Search from './components/Search'
 import Playlist from './components/Playlist'
 import axios from 'axios';
 import * as THREE from 'three';
+import image from "./assets/album.jpg"
 
 export default {
   name: 'app',
@@ -97,11 +126,10 @@ export default {
             title: tracks[i].name,
             author: tracks[i].artistName,
             url: tracks[i].previewURL,
-            pic: 'http://devtest.qiniudn.com/Preparation.jpg'
+            pic: image
           };
           this.songsPar.push(song);
         }
-        // console.log("sss");
         this.components ++;
         this.index ++;
         console.log(this.songsPar);
