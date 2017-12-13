@@ -5,6 +5,7 @@
     @getList="getPlayList"
     />
     <Playlist
+      v-for="comp in components"
       :songsPar="songsPar"
     />
   </div>
@@ -31,7 +32,9 @@ export default {
             url: 'http://devtest.qiniudn.com/Preparation.mp3',
             pic: 'http://devtest.qiniudn.com/Preparation.jpg',
             lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
-          }]
+          }],
+          components: 1,
+          index: 1
       }
   },
   methods: {
@@ -61,6 +64,8 @@ export default {
           this.songsPar.push(song);
         }
         // console.log("sss");
+        this.components ++;
+        this.index ++;
         console.log(this.songsPar);
       })
     }

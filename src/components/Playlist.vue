@@ -18,7 +18,6 @@
 <template>
 
 <div>
-  {{songsPar}}
   <a-player :music="songsPar" ref="player"></a-player>
 </div>
 
@@ -32,6 +31,16 @@ export default {
     components:{
       'a-player': VueAplayer
     },
+    // render: function (createElement) {
+    //   // <div><slot :text="msg"></slot></div>
+    //   return createElement('div', [
+    //       'a-player', {
+    //         props: {
+    //           music: songsPar
+    //         }
+    //       }
+    //   ])
+    // },
     props: {
      songsPar: {
        type: Array,
@@ -74,20 +83,29 @@ export default {
         }
     },
     beforeMount () {
-      console.log("Beofre mount");
-      console.log(this.songsPar);
+      // console.log("Beofre mount");
+      // console.log(this.songsPar);
     },
 
     mounted() {
+        console.log("mounted");
         let aplayer = this.$refs.player.control;
-        aplayer.play()
+        if (aplayer === null) {
+          return;
+        }
+        aplayer.play();
     },
     updated: function () {
       // this.songs = this.songsPar; // save props data to itself's data and deal with it
       console.log("Update");
-      console.log(this.songsPar);
+      // console.log(this.songsPar);
+      let aplayer = this.$refs.player.control;
+      console.log(aplayer);
 
-      // mounted();
+      if (aplayer === null) {
+        return;
+      }
+      aplayer.destroy();
     }
 
 }
