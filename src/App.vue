@@ -25,37 +25,45 @@
               @getList="getPlayList"
               />
               <v-flex xs12 sm8 offset-sm2>
+                <div class="wrapper" width="640">
+                  <canvas class="visualizer" width="640" height="100"></canvas>
+                </div>
               <Playlist
                 v-for="comp in components"
+                v-if="comp === index"
+                v-bind:key="comp"
                 :songsPar="songsPar"
               />
+              <!-- <a-player :music="songsPar" ref="player"></a-player> -->
               </v-flex>
+              <!-- <Player>
+              </Player> -->
 
           </v-layout>
 
       </v-container>
     </v-app>
-    <div id="cube" style="width:400px; height:400px;">THREE.JS should appear here</div>
-      <div id="cubeapp">
-
-      </div>
   </div>
 
 </template>
 
 <script>
 
-import Search from './components/Search'
-import Playlist from './components/Playlist'
+import Search from './components/Search';
+import Playlist from './components/Playlist';
+import VueAplayer from 'vue-aplayer';
+// import Player from './components/Player';
 import axios from 'axios';
-import * as THREE from 'three';
+import draw from './script/draw.js';
 import image from "./assets/album.jpg"
 
 export default {
   name: 'app',
   components: {
     Search,
-    Playlist
+    Playlist,
+    'a-player': VueAplayer
+    // Player
   },
 
   data() {
@@ -73,26 +81,7 @@ export default {
   },
   mounted() {
       console.log("mounted");
-      var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera( 75, 400 / 400, 0.1, 1000 );
-
-      var renderer = new THREE.WebGLRenderer();
-      renderer.setSize( 400, 400 );
-      var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-      var material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe:true } );
-      var cube = new THREE.Mesh( geometry, material );
-      scene.add( cube );
-
-      camera.position.z = 5;
-
-      document.getElementById("cube").appendChild( renderer.domElement );
-      function render() {
-        requestAnimationFrame( render );
-        renderer.render( scene, camera );
-        cube.rotation.x += 0.01;
-          cube.rotation.y += 0.01;
-      }
-      render();
+      draw();
       /*
 
       ThreeJs custom waves
@@ -118,20 +107,42 @@ export default {
       axios.get(url)
       .then(response => {
         // JSON responses are automatically parsed.
-        console.log(response.data.search.data.tracks);
-        var tracks = response.data.search.data.tracks;
-        this.songsPar = [];
-        for(var i = 0; i < tracks.length; i++){
-          var song = {
-            title: tracks[i].name,
-            author: tracks[i].artistName,
-            url: tracks[i].previewURL,
-            pic: image
-          };
-          this.songsPar.push(song);
-        }
-        this.components ++;
-        this.index ++;
+        //console.log(response.data.search.data.tracks);
+        console.log(response.data);
+        //var tracks = response.data.search.data.tracks;
+        var playlist = response.data.search.data.playlists[0];
+        var playlistUrl = playlist.href + "/tracks?apikey=OWRkODNjNGYtNDAwMy00N2JiLWEwOWQtNzRhMzE3NjMyZmM5&limit=10";
+        console.log(playlistUrl);
+        console.log(playlist.images[0].url);
+        axios.get(playlistUrl)
+        .then(response => {
+          var tracks = response.data.tracks;
+          console.log(tracks);
+          this.songsPar = [];
+          for(var i = 0; i < tracks.length; i++){
+            var song = {
+              title: tracks[i].name,
+              author: tracks[i].artistName,
+              url: tracks[i].previewURL,
+              pic: playlist.images[0].url
+            };
+            this.songsPar.push(song);
+          }
+          this.components ++;
+          this.index ++;
+        });
+        // this.songsPar = [];
+        // for(var i = 0; i < tracks.length; i++){
+        //   var song = {
+        //     title: tracks[i].name,
+        //     author: tracks[i].artistName,
+        //     url: tracks[i].previewURL,
+        //     pic: playlist.images[0].url
+        //   };
+        //   this.songsPar.push(song);
+        // }
+        // this.components ++;
+        // this.index ++;
         console.log(this.songsPar);
       })
     }
