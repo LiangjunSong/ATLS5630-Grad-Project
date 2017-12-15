@@ -95,7 +95,7 @@ export default {
         }
         aplayer.play();
     },
-    updated: function () {
+    updated () {
       // this.songs = this.songsPar; // save props data to itself's data and deal with it
       console.log("Update");
       // console.log(this.songsPar);
@@ -105,9 +105,19 @@ export default {
       if (aplayer === null) {
         return;
       }
+      aplayer.pause();
+      aplayer.destroy();
+    },
+    beforeDestroy(){
+      let aplayer = this.$refs.player.control;
+      console.log(aplayer);
+
+      if (aplayer === null) {
+        return;
+      }
+      aplayer.pause();
       aplayer.destroy();
     }
-
 }
 
 </script>
